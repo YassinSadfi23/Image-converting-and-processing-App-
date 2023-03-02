@@ -1,23 +1,31 @@
-# Image-converting-and-processing-App-
-# It's an App developed by me, which gives you the color Histogram of any image you import and also helps you converting it to Black an white or Grey and choose the intensity you want. To create this App I tried to work with "Qt designer" as a framework and link it with python (Backend) in which I have imported many libraries such as PyQt5, Open CV , numpy , Matplotlib.. So the code bellow translate what I said..
 
-#CODE_Yassin_Sadfi
-from PyQt5 import QtWidgets, uic
-from PyQt5.QtGui import QPixmap
-from PIL import Image
-from PyQt5.QtCore import Qt
-import cv2
-from matplotlib import pyplot as plt
-import numpy as np
+//CODE_Yassin_Sadfi
+
+# Libraries
+   
+    from PyQt5 import QtWidgets, uic
+    from PyQt5.QtGui import QPixmap
+    from PIL import Image
+    from PyQt5.QtCore import Qt
+    import cv2
+    from matplotlib import pyplot as plt
+    import numpy as np
 
 # importing Images
+
 def importing():
     global path
+    
     image = QtWidgets.QFileDialog.getOpenFileName()
+    
     path = image[0]
+    
     c=str(path)
+    
     w.txt.setText(str(path))
+    
     if c[-3:len(c)].upper()!="JPG" and c[-3:len(c)].upper()!="PNG" :
+    
         w.txt.setText("EROOOOOOR le fichier doit etre une IMAGE AAYCHEK !!")
 
 
@@ -25,6 +33,7 @@ def importing():
 # Histogram_function
 
 def histo():
+    
     img = cv2.imread(path)
     Image_Height = img.shape[0]
     Image_Width = img.shape[1]
@@ -52,7 +61,8 @@ def histo():
     w.histo.setPixmap(scaled)
 
 
-#slider_Function
+# slider_Function
+
 def slide_contour():
     img = Image.open(path)
     img=img.convert("L")
@@ -84,6 +94,7 @@ def grey():
 
 # Real_Image
 def adiya():
+    
     Image.open(path)
     q = QPixmap(path)
     # resize
@@ -91,19 +102,18 @@ def adiya():
     scaled = q.scaled(size, Qt.KeepAspectRatio)
     w.image.setPixmap(scaled)
 
-#proram principale$
-
-app =QtWidgets.QApplication([])
-w = uic.loadUi("Interface.ui")
-w.show()
-w.btn.clicked.connect(importing)  #btn is the name of the button I created in framework 
-w.btn3.clicked.connect(slide_contour)
-w.btn2.clicked.connect(grey)
-w.btn1.clicked.connect(adiya)
-w.btnH.clicked.connect(histo)
-w.slider.valueChanged.connect(slide_contour)
-app.exec()
-exit()
+#   proram principale$
+    app =QtWidgets.QApplication([])
+    w = uic.loadUi("Interface.ui")
+    w.show()
+    w.btn.clicked.connect(importing)  #btn is the name of the button I created in framework 
+    w.btn3.clicked.connect(slide_contour)
+    w.btn2.clicked.connect(grey)
+    w.btn1.clicked.connect(adiya)
+    w.btnH.clicked.connect(histo)
+    w.slider.valueChanged.connect(slide_contour)
+    app.exec()
+    exit()
 
 
 
