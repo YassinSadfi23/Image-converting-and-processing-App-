@@ -64,6 +64,7 @@ def histo():
 # slider_Function
 
 def slide_contour():
+    
     img = Image.open(path)
     img=img.convert("L")
     #threshold
